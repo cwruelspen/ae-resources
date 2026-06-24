@@ -1,130 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Windows Software — AE Resources</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--bg:#0a0a0f;--surface:#13131a;--border:#1e1e2e;--accent:#7c5cfc;--accent-glow:rgba(124,92,252,0.2);--accent-light:#a78bfa;--text:#e8e8f0;--muted:#6b6b80;--error:#f87171}
-    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;padding:0 1.5rem 5rem}
-    body::before{content:'';position:fixed;width:500px;height:500px;background:rgba(124,92,252,0.07);top:-100px;right:-100px;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
-    #gate{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center;padding:2rem}
-    #gate.hidden{display:none}
-    .gate-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2.2rem;width:100%;max-width:380px;text-align:center}
-    .lock-icon{width:44px;height:44px;background:rgba(124,92,252,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:1.3rem}
-    .gate-box h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:.4rem}
-    .gate-box p{font-size:.85rem;color:var(--muted);margin-bottom:1.6rem}
-    .input-wrap{position:relative;margin-bottom:.8rem}
-    .input-wrap input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:.95rem;padding:.75rem 2.8rem .75rem 1rem;outline:none;transition:border-color .15s}
-    .input-wrap input:focus{border-color:var(--accent)}
-    .toggle-pw{position:absolute;right:.8rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:1rem;padding:0}
-    .error-msg{font-size:.8rem;color:var(--error);margin-bottom:.8rem;min-height:1.1rem}
-    .gate-btn{width:100%;background:var(--accent);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:.95rem;font-weight:600;padding:.8rem;border:none;border-radius:8px;cursor:pointer;transition:background .15s}
-    .gate-btn:hover{background:#9070ff}
-    .shake{animation:shake .35s ease}
-    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-    #main{display:none}
-    #main.visible{display:block}
-    nav{position:relative;z-index:1;display:flex;align-items:center;gap:.6rem;padding:1.8rem 0 0;max-width:760px;margin:0 auto;flex-wrap:wrap}
-    nav a{color:var(--muted);text-decoration:none;font-size:.88rem;transition:color .15s}
-    nav a:hover{color:var(--accent-light)}
-    nav .sep{color:var(--border);font-size:.8rem}
-    nav .current{color:var(--text);font-size:.88rem}
-    header{position:relative;z-index:1;max-width:760px;margin:3rem auto 2rem}
-    .page-icon{font-size:2.2rem;margin-bottom:.8rem}
-    .eyebrow{font-family:'Space Grotesk',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);margin-bottom:.7rem}
-    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:.5rem}
-    .subtitle{color:var(--muted);font-size:.93rem;line-height:1.6}
-    hr{border:none;border-top:1px solid var(--border);max-width:760px;margin:0 auto 2.5rem}
-    .resource-list{position:relative;z-index:1;max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:1.5rem}
-    .resource{border-left:2px solid var(--border);padding-left:1.2rem;transition:border-color .2s}
-    .resource:hover{border-color:var(--accent)}
-    .resource-name{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.35rem}
-    .resource-link{display:inline-flex;align-items:center;gap:.35rem;color:var(--accent-light);text-decoration:none;font-size:.87rem;font-weight:500;transition:color .15s,gap .15s}
-    .resource-link:hover{color:#c4b5fd;gap:.55rem}
-    .resource-desc{font-size:.82rem;color:var(--muted);margin-top:.25rem;line-height:1.5}
-    .empty{color:var(--muted);font-size:.9rem;font-style:italic}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    body {background-color: #0a0a0d}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 15.6px '.Apple Color Emoji UI'; color: #e2e2ec; -webkit-text-stroke: #e2e2ec}
+    p.p3 {margin: 0.0px 0.0px 19.2px 0.0px; text-align: center; font: 10.2px 'Helvetica Neue'; color: #58576d; -webkit-text-stroke: #58576d}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 12.0px '.Apple Color Emoji UI'; color: #58576d; -webkit-text-stroke: #58576d}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.4px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; background-color: #683dfb}
+    span.s1 {font-kerning: none; background-color: rgba(104, 61, 251, 0.15)}
+    span.s2 {font-kerning: none; background-color: #100f14}
+    span.s3 {font-kerning: none}
   </style>
 </head>
 <body>
-  <div id="gate">
-    <div class="gate-box" id="gateBox">
-      <div class="lock-icon">🔒</div>
-      <h2>Private Access</h2>
-      <p>Enter the password to continue</p>
-      <div class="input-wrap">
-        <input type="password" id="pwInput" placeholder="Password" autocomplete="off"/>
-        <button class="toggle-pw" onclick="togglePw()">👁</button>
-      </div>
-      <p class="error-msg" id="errMsg"></p>
-      <button class="gate-btn" onclick="checkPassword()">Enter</button>
-    </div>
-  </div>
-
-  <div id="main">
-    <nav>
-      <a href="index.html">Home</a>
-      <span class="sep">›</span>
-      <a href="plugins.html">Resources</a>
-      <span class="sep">›</span>
-      <span class="current">Windows Software</span>
-    </nav>
-    <header>
-      <div class="page-icon">🪟</div>
-      <p class="eyebrow">Resources</p>
-      <h1>Windows Software</h1>
-      <p class="subtitle">Essential software and tools for motion designers on Windows.</p>
-    </header>
-    <hr/>
-    <div class="resource-list" id="list">
-      <p class="empty">Loading...</p>
-    </div>
-  </div>
-
-  <script src="links.js"></script>
-  <script>
-    const CORRECT = "cwruelspen";
-    const CATEGORY = "windows-software";
-
-    if (sessionStorage.getItem("ae_unlocked") === "true") unlock();
-    document.getElementById("pwInput").addEventListener("keydown", e => { if(e.key==="Enter") checkPassword(); });
-
-    function checkPassword() {
-      if (document.getElementById("pwInput").value === CORRECT) {
-        sessionStorage.setItem("ae_unlocked","true"); unlock();
-      } else {
-        const box = document.getElementById("gateBox");
-        document.getElementById("errMsg").textContent = "Incorrect password — try again.";
-        box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
-        document.getElementById("pwInput").value = "";
-      }
-    }
-
-    function unlock() {
-      document.getElementById("gate").classList.add("hidden");
-      document.getElementById("main").classList.add("visible");
-      renderLinks();
-    }
-
-    function renderLinks() {
-      const list = document.getElementById("list");
-      const items = LINKS.filter(l => l.category === CATEGORY);
-      if (items.length === 0) {
-        list.innerHTML = '<p class="empty">No links added yet — open links.js to add some!</p>';
-        return;
-      }
-      list.innerHTML = items.map(l => `
-        <div class="resource">
-          <div class="resource-name">${l.name}</div>
-          <a class="resource-link" href="${l.url}" target="_blank" rel="noopener">Download here →</a>
-          ${l.desc ? `<div class="resource-desc">${l.desc}</div>` : ''}
-        </div>
-      `).join('');
-    }
-
-    function togglePw() { const i=document.getElementById("pwInput"); i.type=i.type==="password"?"text":"password"; }
-  </script>
+<p class="p1"><span class="s1">🔒</span></p>
+<h2 style="margin: 0.0px 0.0px 4.8px 0.0px; text-align: center; font: 15.6px 'Helvetica Neue'; color: #e2e2ec; -webkit-text-stroke: #e2e2ec"><span class="s2">Private Access</span></h2>
+<p class="p3"><span class="s2">Enter the password to continue</span></p>
+<p class="p4"><span class="s2">👁</span></p>
+<p class="p3"><span class="s3">c</span></p>
+<p class="p5"><span class="s3">Enter</span></p>
 </body>
 </html>

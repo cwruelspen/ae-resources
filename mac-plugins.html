@@ -45,7 +45,6 @@
     .resource-link{display:inline-flex;align-items:center;gap:.35rem;color:var(--accent-light);text-decoration:none;font-size:.87rem;font-weight:500;transition:color .15s,gap .15s}
     .resource-link:hover{color:#c4b5fd;gap:.55rem}
     .resource-desc{font-size:.82rem;color:var(--muted);margin-top:.25rem;line-height:1.5}
-    .empty{color:var(--muted);font-size:.9rem;font-style:italic}
   </style>
 </head>
 <body>
@@ -78,15 +77,24 @@
       <p class="subtitle">After Effects plugins compatible with macOS.</p>
     </header>
     <hr/>
-    <div class="resource-list" id="list">
-      <p class="empty">Loading...</p>
-    </div>
+    <div class="resource-list" id="list"></div>
   </div>
 
-  <script src="links.js"></script>
   <script>
     const CORRECT = "cwruelspen";
-    const CATEGORY = "mac-plugins";
+
+    // ============================================================
+    //  ✏️  ADD YOUR LINKS HERE
+    //  Copy a block and paste it at the bottom. Fill in:
+    //    name: "Display name"
+    //    url:  "https://..."
+    //    desc: "Short description (optional, delete the line to hide)"
+    // ============================================================
+    const LINKS = [
+      { name: "Twitch", url: "https://aescripts.com/twitch/", desc: "Sync and randomise blur, colour, scale and more in AE." },
+      { name: "Optical Flares", url: "https://www.videocopilot.net/products/opticalflares/", desc: "Industry-standard lens flare plugin from Video Copilot." },
+    ];
+    // ============================================================
 
     if (sessionStorage.getItem("ae_unlocked") === "true") unlock();
     document.getElementById("pwInput").addEventListener("keydown", e => { if(e.key==="Enter") checkPassword(); });
@@ -110,12 +118,11 @@
 
     function renderLinks() {
       const list = document.getElementById("list");
-      const items = LINKS.filter(l => l.category === CATEGORY);
-      if (items.length === 0) {
-        list.innerHTML = '<p class="empty">No links added yet — open links.js to add some!</p>';
+      if (!LINKS.length) {
+        list.innerHTML = '<p style="color:var(--muted);font-style:italic">No links yet — open this file and add some to the LINKS array!</p>';
         return;
       }
-      list.innerHTML = items.map(l => `
+      list.innerHTML = LINKS.map(l => `
         <div class="resource">
           <div class="resource-name">${l.name}</div>
           <a class="resource-link" href="${l.url}" target="_blank" rel="noopener">Download here →</a>
