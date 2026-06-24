@@ -1,144 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AE Resources</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#0a0a0f;--surface:#13131a;--border:#1e1e2e;--accent:#7c5cfc;--accent-glow:rgba(124,92,252,0.35);--accent-light:#a78bfa;--text:#e8e8f0;--muted:#6b6b80;--error:#f87171}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;overflow:hidden}
+    body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0}
+    body::before{width:500px;height:500px;background:rgba(124,92,252,0.12);top:-100px;left:-100px}
+    body::after{width:400px;height:400px;background:rgba(99,60,220,0.08);bottom:-80px;right:-80px}
 
-    :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --border: #1e1e2e;
-      --accent: #7c5cfc;
-      --accent-glow: rgba(124, 92, 252, 0.35);
-      --accent-light: #a78bfa;
-      --text: #e8e8f0;
-      --muted: #6b6b80;
-    }
+    /* GATE */
+    #gate{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center;padding:2rem}
+    #gate.hidden{display:none}
+    .gate-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2.2rem;width:100%;max-width:380px;text-align:center}
+    .lock-icon{width:44px;height:44px;background:rgba(124,92,252,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:1.3rem}
+    .gate-box h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:.4rem}
+    .gate-box p{font-size:.85rem;color:var(--muted);margin-bottom:1.6rem}
+    .input-wrap{position:relative;margin-bottom:.8rem}
+    .input-wrap input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:.95rem;padding:.75rem 2.8rem .75rem 1rem;outline:none;transition:border-color .15s}
+    .input-wrap input:focus{border-color:var(--accent)}
+    .toggle-pw{position:absolute;right:.8rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:1rem;padding:0;transition:color .15s}
+    .toggle-pw:hover{color:var(--accent-light)}
+    .error-msg{font-size:.8rem;color:var(--error);margin-bottom:.8rem;min-height:1.1rem}
+    .gate-btn{width:100%;background:var(--accent);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:.95rem;font-weight:600;padding:.8rem;border:none;border-radius:8px;cursor:pointer;box-shadow:0 0 24px var(--accent-glow);transition:background .15s,transform .15s}
+    .gate-btn:hover{background:#9070ff;transform:translateY(-1px)}
+    .shake{animation:shake .35s ease}
+    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      overflow: hidden;
-    }
+    #main{display:none;flex-direction:column;align-items:center;width:100%}
+    #main.visible{display:flex}
 
-    /* Ambient background blobs */
-    body::before, body::after {
-      content: '';
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    body::before {
-      width: 500px; height: 500px;
-      background: rgba(124, 92, 252, 0.12);
-      top: -100px; left: -100px;
-    }
-    body::after {
-      width: 400px; height: 400px;
-      background: rgba(99, 60, 220, 0.08);
-      bottom: -80px; right: -80px;
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 560px;
-    }
-
-    .eyebrow {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-light);
-      margin-bottom: 1.2rem;
-    }
-
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.2rem, 6vw, 3.4rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
-
-    h1 span {
-      color: var(--accent-light);
-    }
-
-    .subtitle {
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 3rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: var(--accent);
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      padding: 1rem 2.2rem;
-      border-radius: 10px;
-      text-decoration: none;
-      box-shadow: 0 0 32px var(--accent-glow), 0 2px 8px rgba(0,0,0,0.4);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-      letter-spacing: 0.01em;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      background: #9070ff;
-      box-shadow: 0 0 52px rgba(124, 92, 252, 0.5), 0 4px 16px rgba(0,0,0,0.5);
-    }
-
-    .btn svg {
-      width: 18px; height: 18px;
-      flex-shrink: 0;
-    }
-
-    .footer {
-      position: fixed;
-      bottom: 1.5rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-      z-index: 1;
-    }
+    .container{position:relative;z-index:1;text-align:center;max-width:560px}
+    .eyebrow{font-family:'Space Grotesk',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);margin-bottom:1.2rem}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,6vw,3.4rem);font-weight:700;line-height:1.1;letter-spacing:-.02em;color:var(--text);margin-bottom:1rem}
+    h1 span{color:var(--accent-light)}
+    .subtitle{font-size:1rem;color:var(--muted);line-height:1.6;margin-bottom:3rem}
+    .btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--accent);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;padding:1rem 2.2rem;border-radius:10px;text-decoration:none;box-shadow:0 0 32px var(--accent-glow),0 2px 8px rgba(0,0,0,.4);transition:transform .18s,box-shadow .18s,background .18s}
+    .btn:hover{transform:translateY(-3px);background:#9070ff;box-shadow:0 0 52px rgba(124,92,252,.5),0 4px 16px rgba(0,0,0,.5)}
+    .btn svg{width:18px;height:18px;flex-shrink:0}
+    .footer{position:fixed;bottom:1.5rem;font-size:.78rem;color:var(--muted);z-index:1}
   </style>
 </head>
 <body>
-  <div class="container">
-    <p class="eyebrow">Motion Design Resources</p>
-    <h1>Your <span>AE</span> toolkit,<br>all in one place.</h1>
-    <p class="subtitle">A curated collection of tools and plugins to speed up your After Effects workflow.</p>
-    <a href="plugins.html" class="btn">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.007-1.875 2.25-1.875 1.242 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z" />
-      </svg>
-      After Effects Plugins
-    </a>
+  <div id="gate">
+    <div class="gate-box" id="gateBox">
+      <div class="lock-icon">🔒</div>
+      <h2>Private Access</h2>
+      <p>Enter the password to continue</p>
+      <div class="input-wrap">
+        <input type="password" id="pwInput" placeholder="Password" autocomplete="off"/>
+        <button class="toggle-pw" onclick="togglePw()">👁</button>
+      </div>
+      <p class="error-msg" id="errMsg"></p>
+      <button class="gate-btn" onclick="checkPassword()">Enter</button>
+    </div>
+  </div>
+
+  <div id="main">
+    <div class="container">
+      <p class="eyebrow">Motion Design Resources</p>
+      <h1>Your <span>AE</span> toolkit,<br>all in one place.</h1>
+      <p class="subtitle">A curated collection of tools and plugins to speed up your After Effects workflow.</p>
+      <a href="plugins.html" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.007-1.875 2.25-1.875 1.242 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z"/>
+        </svg>
+        Browse Resources
+      </a>
+    </div>
   </div>
   <p class="footer">AE Resources — built for editors, by an editor.</p>
+
+  <script>
+    const CORRECT = "cwruelspen";
+    if (sessionStorage.getItem("ae_unlocked") === "true") unlock();
+    document.getElementById("pwInput").addEventListener("keydown", e => { if(e.key==="Enter") checkPassword(); });
+    function checkPassword() {
+      if (document.getElementById("pwInput").value === CORRECT) {
+        sessionStorage.setItem("ae_unlocked","true"); unlock();
+      } else {
+        const box = document.getElementById("gateBox");
+        document.getElementById("errMsg").textContent = "Incorrect password — try again.";
+        box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+        document.getElementById("pwInput").value = "";
+      }
+    }
+    function unlock() { document.getElementById("gate").classList.add("hidden"); document.getElementById("main").classList.add("visible"); }
+    function togglePw() { const i=document.getElementById("pwInput"); i.type=i.type==="password"?"text":"password"; }
+  </script>
 </body>
 </html>
