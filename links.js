@@ -65,7 +65,7 @@ const LINKS = [
     url: "https://www.videocopilot.net/products/opticalflares/",
     desc: "Industry-standard lens flare plugin from Video Copilot."
   },
-    {
+  {
     category: "windows-plugins",
     name: "Poochayna",
     url: "https://discord.com",
