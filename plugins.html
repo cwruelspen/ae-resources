@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AE Plugins — AE Resources</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --border: #1e1e2e;
+      --accent: #7c5cfc;
+      --accent-glow: rgba(124, 92, 252, 0.25);
+      --accent-light: #a78bfa;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+      --tag-bg: rgba(124, 92, 252, 0.12);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 0 1.5rem 4rem;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      width: 500px; height: 500px;
+      background: rgba(124, 92, 252, 0.08);
+      top: -120px; right: -120px;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1.8rem 0 0;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.15s;
+    }
+    nav a:hover { color: var(--accent-light); }
+
+    nav .sep { color: var(--border); font-size: 0.8rem; }
+    nav .current { color: var(--text); font-size: 0.88rem; }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 3rem auto 2.5rem;
+    }
+
+    .eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 0.8rem;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ── DIVIDER ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 720px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ── PLUGIN LIST ── */
+    .list {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    /* ── HOW TO ADD LINKS ──────────────────────────────────────────
+       To add a new plugin, copy one <a class="plugin-card"> block
+       and paste it below the last one. Change:
+         href="..."        → the website URL
+         .plugin-name      → the plugin name
+         .plugin-desc      → a short description
+         .tag span text    → a category label (Free / Paid / etc.)
+    ─────────────────────────────────────────────────────────────── */
+
+    .plugin-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.4rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+    }
+
+    .plugin-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+      transform: translateX(4px);
+    }
+
+    .plugin-info { flex: 1; min-width: 0; }
+
+    .plugin-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .plugin-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .plugin-right {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--accent-light);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .arrow {
+      color: var(--muted);
+      font-size: 1rem;
+      transition: color 0.15s;
+    }
+    .plugin-card:hover .arrow { color: var(--accent-light); }
+
+    /* ── ADD LINK HINT ── */
+    .add-hint {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 2rem auto 0;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      color: var(--muted);
+      font-size: 0.83rem;
+      line-height: 1.6;
+    }
+
+    .add-hint strong {
+      color: var(--accent-light);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <span class="sep">›</span>
+    <span class="current">After Effects Plugins</span>
+  </nav>
+
+  <header>
+    <p class="eyebrow">Resources</p>
+    <h1>After Effects Plugins</h1>
+    <p class="subtitle">Click any plugin to visit its page. Add your own links by editing the HTML below.</p>
+  </header>
+
+  <hr />
+
+  <div class="list">
+
+    <!-- ✏️ ADD YOUR LINKS HERE — copy & paste a block below to add more -->
+
+    <a class="plugin-card" href="https://aescripts.com" target="_blank" rel="noopener">
+      <div class="plugin-info">
+        <p class="plugin-name">aescripts + aeplugins</p>
+        <p class="plugin-desc">The biggest marketplace for AE scripts and plugins</p>
+      </div>
+      <div class="plugin-right">
+        <span class="tag">Store</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <a class="plugin-card" href="https://www.videocopilot.net/plugins/" target="_blank" rel="noopener">
+      <div class="plugin-info">
+        <p class="plugin-name">Video Copilot</p>
+        <p class="plugin-desc">Element 3D, Optical Flares, and more from Andrew Kramer</p>
+      </div>
+      <div class="plugin-right">
+        <span class="tag">Paid</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <a class="plugin-card" href="https://misterhorse.com" target="_blank" rel="noopener">
+      <div class="plugin-info">
+        <p class="plugin-name">Mister Horse</p>
+        <p class="plugin-desc">Animation Composer and Premiere Composer preset packs</p>
+      </div>
+      <div class="plugin-right">
+        <span class="tag">Free + Paid</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- Example of a free plugin card -->
+    <a class="plugin-card" href="https://www.battleaxe.co/rubberhose" target="_blank" rel="noopener">
+      <div class="plugin-info">
+        <p class="plugin-name">Rubber Hose 3</p>
+        <p class="plugin-desc">The fastest character animation tool for After Effects</p>
+      </div>
+      <div class="plugin-right">
+        <span class="tag">Paid</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- ✏️ PASTE MORE CARDS HERE -->
+
+  </div>
+
+  <div class="add-hint">
+    <strong>Adding a new link:</strong> open <code>plugins.html</code> in any text editor, find the comment that says
+    <em>ADD YOUR LINKS HERE</em>, copy one of the <code>&lt;a class="plugin-card"&gt;</code> blocks, paste it below,
+    and update the <code>href</code>, name, and description. Save the file and you're done.
+  </div>
+
+</body>
+</html>
